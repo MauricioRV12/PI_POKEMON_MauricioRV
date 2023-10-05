@@ -42,6 +42,8 @@
 
 const axios = require('axios');
 
+const stats = {};
+
 const getPokemons = async (req, res) => {
     try {
         // Arreglo para almacenar todos los pokemons
@@ -58,7 +60,6 @@ const getPokemons = async (req, res) => {
                 const pokeInfo = pokeResponse.data;
 
                 const imageUrl = pokeInfo.sprites.other.home.front_default;
-                const stats = {};
 
                 pokeInfo.stats.forEach(stat => {
                     stats[stat.stat.name] = stat.base_stat;

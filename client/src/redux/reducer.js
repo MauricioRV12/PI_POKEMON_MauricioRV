@@ -26,23 +26,48 @@ const reducer = (state = initialState, action) => {
                     return 0;
                 })
             };
-        case "ORDER_ATTACK":
-            const allPokeAttackCopy = [...state.pokemons];
-            return {
-                ...state,
-                pokemons: action.payload === 1
-                ? allPokeAttackCopy.sort((a,b)=>a.stats.base_stat.name === "attack" - b.stats.base_stat.name === "attack")
-                : allPokeAttackCopy.sort((a,b)=>b.stats.base_stat.name === "attack" - a.stats.base_stat.name === "attack")
-            };
-        case "SET_POKEMONS":
-            return {
-                ...state,
-                filterPokemons: action.payload,
-                pokemons: action.payload
-            };
-        default:
-            return {...state};
-    }
+        // case "ORDER_ATTACK":
+        //     const allPokeAttackCopy = [...state.pokemons];
+        //     return {
+        //         ...state,
+        //         pokemons: action.payload === 1
+        //         ? allPokeAttackCopy.sort((a,b)=>a.stats.base_stat.name === "attack" - b.stats.base_stat.name === "attack")
+        //         : allPokeAttackCopy.sort((a,b)=>b.stats.base_stat.name === "attack" - a.stats.base_stat.name === "attack")
+        //     };  
+
+
+            case "ORDER_ATTACK_ASCENDING":
+      return {
+        ...state,
+        filteredPokemons: state.filteredPokemons.sort((a, b) => {
+          if (a.attack > b.attack) return -1;
+          if (a.attack < b.attack) return 1;
+          return 0;
+        }),
+      };
+    case "ORDER_ATTACK_DESCENDING":
+      return {
+        ...state,
+        filteredPokemons: state.filteredPokemons.sort((a, b) => {
+          if (a.attack < b.attack) return -1;
+          if (a.attack > b.attack) return 1;
+          return 0;
+        }),
+      };
+
+
+      
+      /******************************************************************************************************** */
+      
+          case "SET_POKEMONS":
+                  return {
+                  ...state,
+                  filterPokemons: action.payload,
+                  pokemons: action.payload
+              };
+            default:
+                return {...state};
+            }
 };
 
 export default reducer;
