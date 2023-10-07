@@ -1,6 +1,7 @@
 const initialState = {
     filterPokemons: [],
     pokemons: [], // todos los pokemons
+    newPokemon: {},
 };
 
 const reducer = (state = initialState, action) => {
@@ -36,8 +37,8 @@ const reducer = (state = initialState, action) => {
         //     };  
 
 
-            case "ORDER_ATTACK_ASCENDING":
-      return {
+      case "ORDER_ATTACK_ASCENDING":
+          return {
         ...state,
         filteredPokemons: state.filteredPokemons.sort((a, b) => {
           if (a.attack > b.attack) return -1;
@@ -45,7 +46,7 @@ const reducer = (state = initialState, action) => {
           return 0;
         }),
       };
-    case "ORDER_ATTACK_DESCENDING":
+      case "ORDER_ATTACK_DESCENDING":
       return {
         ...state,
         filteredPokemons: state.filteredPokemons.sort((a, b) => {
@@ -54,20 +55,24 @@ const reducer = (state = initialState, action) => {
           return 0;
         }),
       };
-
-
       
       /******************************************************************************************************** */
-      
-          case "SET_POKEMONS":
-                  return {
-                  ...state,
-                  filterPokemons: action.payload,
-                  pokemons: action.payload
-              };
-            default:
-                return {...state};
-            }
+        case "ADD_POKEMON":
+          return {
+            ...state,
+            newPokemon: action.payload
+          };
+
+        case "SET_POKEMONS":
+            return {
+             ...state,
+             filterPokemons: action.payload,
+             pokemons: action.payload
+            };
+           
+        default:
+            return {...state};
+    };
 };
 
 export default reducer;
