@@ -18,3 +18,25 @@
     width: 800px;
     height: 530px;      
 }
+
+
+/* Estilo del trapezoide */
+.trapezoid {
+    position: relative;
+    width: 400px;
+    left: 800px;
+    top: 100px;
+    border-left: 100px solid transparent; /* Ancho izquierdo del trapezoide */
+    border-right: -1px solid transparent; /* Ancho derecho del trapezoide */
+    border-bottom: 200px solid rgb(255, 200, 0); 
+  }
+  
+  /* Estilo del contenido dentro del trapezoide */
+  .content {
+    position: absolute;
+    top: 20%; /* Ajusta la posición vertical del contenido */
+    left: 10px; /* Ajusta la posición horizontal del contenido */
+    color: rgb(0, 0, 0); /* Color del texto */
+    font-family: cursive;
+  }
+  

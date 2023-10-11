@@ -4,8 +4,6 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 
-//const stats = {};
-
 const Detail = () => {
     const {id} = useParams();
     console.log(id);
@@ -51,15 +49,3 @@ const Detail = () => {
 };
 
 export default Detail;
-
-
-// ID.
-// Nombre.
-// Imagen.
-// Vida.
-// Ataque.
-// Defensa.
-// Velocidad (si tiene).
-// Altura (si tiene).
-// Peso (si tiene).
-// Tipo.

@@ -36,7 +36,7 @@ const getPokemonsById = async (req, res) => {
             return res.status(404).send('Id pokemon not found.');
         }
     } catch (error) {
-        return res.status(500).json({ error: error.message });
+        return res.status(404).json({ error: error.message });
     }
 };
 

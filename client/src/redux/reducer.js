@@ -1,62 +1,54 @@
 const initialState = {
     filterPokemons: [],
-    pokemons: [], // todos los pokemons
+    pokemons: [],
     newPokemon: {},
 };
 
 const reducer = (state = initialState, action) => {
     switch(action.type) {
         case "FILTER":
-            return {
-                ...state,
-                pokemons: action.payload
-            };
+          return {
+              ...state,
+              pokemons: action.payload
+          };
         case "ORDER":
             const allPokemonsCopy = [...state.pokemons];
-            return {
-                ...state,
-                pokemons: action.payload === "A" 
-                ? allPokemonsCopy.sort((a,b)=>{
-                    if(a.name > b.name) return -1;
-                    if(b.name > a.name) return 1;
-                    return 0;
-                })
-                : allPokemonsCopy.sort((a,b)=>{
-                    if(a.name > b.name) return 1;
-                    if(b.name > a.name) return -1;
-                    return 0;
-                })
-            };
-        // case "ORDER_ATTACK":
-        //     const allPokeAttackCopy = [...state.pokemons];
-        //     return {
-        //         ...state,
-        //         pokemons: action.payload === 1
-        //         ? allPokeAttackCopy.sort((a,b)=>a.stats.base_stat.name === "attack" - b.stats.base_stat.name === "attack")
-        //         : allPokeAttackCopy.sort((a,b)=>b.stats.base_stat.name === "attack" - a.stats.base_stat.name === "attack")
-        //     };  
-
-
-      case "ORDER_ATTACK_ASCENDING":
           return {
-        ...state,
-        filteredPokemons: state.filteredPokemons.sort((a, b) => {
-          if (a.attack > b.attack) return -1;
-          if (a.attack < b.attack) return 1;
-          return 0;
-        }),
-      };
-      case "ORDER_ATTACK_DESCENDING":
-      return {
-        ...state,
-        filteredPokemons: state.filteredPokemons.sort((a, b) => {
-          if (a.attack < b.attack) return -1;
-          if (a.attack > b.attack) return 1;
-          return 0;
-        }),
-      };
-      
-      /******************************************************************************************************** */
+            ...state,
+            pokemons: action.payload === "A" 
+            ? allPokemonsCopy.sort((a,b)=>{
+              if(a.name > b.name) return -1;
+              if(b.name > a.name) return 1;
+              return 0;
+            })
+            : allPokemonsCopy.sort((a,b)=>{
+              if(a.name > b.name) return 1;
+              if(b.name > a.name) return -1;
+              return 0;
+            })
+          };
+        case "ORDER_ATTACK":
+            const filterPokemons = action.payload;
+            const allPokemonsAttackCopy = [...state.pokemons];
+
+            console.log(action.payload);
+            console.log(allPokemonsAttackCopy);
+          
+          return {
+            ...state,
+            filterPokemons: filterPokemons
+              ? allPokemonsAttackCopy.sort((a, b) => {
+                  const attackA = a.stats.find(stat => stat.stat.name === 'attack').base_stat;
+                  const attackB = b.stats.find(stat => stat.stat.name === 'attack').base_stat;
+                  return attackA - attackB;
+                })
+              : allPokemonsAttackCopy.sort((a, b) => {
+                  const attackA = a.stats.find(stat => stat.stat.name === 'attack').base_stat;
+                  const attackB = b.stats.find(stat => stat.stat.name === 'attack').base_stat;
+                  return attackB - attackA;
+                })
+          };
+
         case "ADD_POKEMON":
           return {
             ...state,

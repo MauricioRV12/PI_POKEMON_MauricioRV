@@ -18,7 +18,6 @@ function App() {
       .then((response) => {
         // datos de la respuesta
         const data = response.data;
-        console.log(data);
         setPokemons(data); 
       })
       .catch((error) => {

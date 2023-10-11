@@ -5,12 +5,11 @@ import { filterCards, orderByName, fetchPokemons, orderByAttack } from '../../re
 import Card from '../Card/Card';
 
 const Home = () => {
-  const pokemonsPerPage = 12; // Cantidad de pokémones por página
+  const pokemonsPerPage = 12;
   const [currentPage, setCurrentPage] = useState(1);
 
   const dispatch = useDispatch();
   const pokemons = useSelector((state) => state.pokemons);
-  const [selectOrder, setSelectOrder] = useState("");
   
   
   useEffect(() => {
@@ -27,17 +26,12 @@ const Home = () => {
     dispatch(orderByName(nameOrder));
   };
 
-  // const handleOrderAtt = (event) => {
-  //   const attackOrder = event.target.value;
-  //   dispatch(orderByAttack(attackOrder));
-  // };
-  
-  const order = (event) => {
-    setSelectOrder(event.target.value);
-    if (event.target.value === "alph" || event.target.value === "attack") return;
-    dispatch(orderByAttack(event.target.value));
+  /************************************************************************************************************* */
+
+  const handleOrder = (event) => {
+    const type = event.target.value;
+    dispatch(orderByAttack(type));
   };
-  
   /*************************************************************************************************************** */
 
   useEffect(() => {
@@ -52,8 +46,6 @@ const Home = () => {
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
-
-  /***************************************************************************************************************** */
 
   return (
     <div>
@@ -89,22 +81,16 @@ const Home = () => {
           <option value="A">Z-A</option>
           <option value="B">A-Z</option>
         </select>
-
-        {/* <select onChange={handleOrderAtt}>
-          <option value="Asc">Attack</option>
-          <option value="Desc">attack</option>
-        </select> */}
+      
+        <select onChange={handleOrder} className='Order'>
+          <option value="attack">Attack</option>
+          <option value="less">Less (-)</option>
+          <option value="more">More (+)</option>
+        </select>
       </div>
 
-      <div>
-            <select onChange={order} value={selectOrder}>
-              <option value="attack">Attack</option>
-              <option value="less">Less (-)</option>
-              <option value="more">More (+)</option>
-            </select>
-          </div>
 
-      <div /*className='Cards'*/>
+      <div>
         {paginatedPokemons.map((pokemon) => (
           <Card key={pokemon.id} pokemon={pokemon} />
         ))}
